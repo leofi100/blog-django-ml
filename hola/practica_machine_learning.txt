@@ -1,0 +1,26 @@
+La solución 🔧
+Tienes que instalar sklearn en el mismo Python que ejecuta tu script (el pythoncore-3.14-64). Usa su ruta completa para el pip:
+
+Bash
+
+C:\Users\Goyoman\AppData\Local\Python\pythoncore-3.14-64\python.exe -m pip install scikit-learn
+Al poner la ruta completa seguida de -m pip install, obligas a que la instalación vaya a ese Python exacto, el que falla. Después vuelve a correr tu script y ya debería encontrar sklearn.
+
+Alternativa más cómoda (recomendada): dile a VS Code cuál usar
+Para que esto no te vuelva a pasar nunca, lo mejor es fijar un solo intérprete en VS Code:
+
+Pulsa Ctrl + Shift + P
+Escribe y selecciona Python: Select Interpreter
+Elige el que está en ...\Programs\Python\python314 (donde ya tienes sklearn instalado).
+Así VS Code usará siempre ese Python, tanto para ejecutar como para instalar, y se acaban los desajustes. Esta es la forma profesional de trabajar: un proyecto, un intérprete claro.
+
+💡 La lección de fondo (grábatela)
+Cada vez que veas ModuleNotFoundError justo después de haber instalado algo "con éxito", el 90% de las veces es esto: instalaste en un Python y ejecutaste en otro. El reflejo correcto:
+
+python -c "import sys; print(sys.executable)" → ¿qué Python ejecuta mi script?
+Instalar con ese Python exacto (ruta completa + -m pip install).
+O mejor: fijar el intérprete en VS Code con Select Interpreter.
+Es el mismo diagnóstico que aplicaste con requests en tu blog. Ya es un patrón que reconoces. 🎯
+
+👉 Prueba cualquiera de las dos soluciones (la ruta completa, o Select Interpreter), vuelve a correr tu script machine_learning.py y pégame el resultado. En cuanto sklearn cargue, verás tu primera predicción de ventas. 💪
+

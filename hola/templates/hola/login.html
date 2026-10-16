@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Iniciar Sesión</title>
+    <link rel="stylesheet" href="{% static 'hola/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>🔐 Iniciar Sesión</h1>
+        
+        {% if form.errors %}
+            <div style="background: #fee; border: 1px solid #fcc; padding: 15px; border-radius: 5px; margin-bottom: 20px; color: #c33;">
+                <strong>⚠️ Usuario o contraseña incorrectos</strong>
+            </div>
+        {% endif %}
+        
+        <form method="POST">
+            {% csrf_token %}
+            
+            <label>Nombre de usuario:</label>
+            {{ form.username }}
+            
+            <label>Contraseña:</label>
+            {{ form.password }}
+            
+            <button type="submit" class="btn-guardar">Entrar</button>
+        </form>
+        
+        <br>
+        <p>¿No tienes cuenta? <a href="{% url 'registro' %}" class="volver">Regístrate aquí</a></p>
+        <a href="{% url 'hola_mundo' %}" class="volver">← Volver a la lista</a>
+    </div>
+    
+    <script src="{% static 'hola/theme.js' %}"></script>
+</body>
+</html>

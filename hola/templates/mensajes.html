@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mensajes recibidos</title>
+</head>
+<body>
+    <h1>Mensajes recibidos</h1>
+    <table border="1">
+        <tr>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Fecha</th>
+        </tr>
+        {% for m in mensajes %}
+        <tr>
+            <td>{{ m.nombre }}</td>
+            <td>{{ m.email }}</td>
+            <td>{{ m.fecha_mensaje }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Eliminar Artículo</title>
+    <link rel="stylesheet" href="{% static 'hola/style.css' %}">
+</head>
+<body>
+    <button class="theme-toggle" onclick="toggleTheme()">
+        <span class="icon" id="theme-icon">🌙</span>
+        <span id="theme-text">Oscuro</span>
+    </button>
+    
+    <div class="container">
+        <h1>🗑️ Eliminar Artículo</h1>
+        
+        <div style="background: #fee; border: 2px solid #fcc; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            <p style="font-size: 1.2em; color: #c33;">
+                <strong>⚠️ ¿Estás seguro?</strong>
+            </p>
+            <p>Vas a eliminar el artículo:</p>
+            <h3 style="color: #2c3e50;">{{ articulo.titulo }}</h3>
+            <p style="color: #666;">Esta acción no se puede deshacer.</p>
+        </div>
+        
+        <form method="POST" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn-eliminar">Sí, eliminar</button>
+        </form>
+        
+        <a href="{% url 'detalle_articulo' articulo.id %}" class="volver" style="margin-left: 15px;">
+            ← No, cancelar
+        </a>
+    </div>
+    
+    <script src="{% static 'hola/theme.js' %}"></script>
+</body>
+</html>

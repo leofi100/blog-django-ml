@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro</title>
+    <link rel="stylesheet" href="{% static 'hola/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>📝 Crear Cuenta</h1>
+        
+        {% if form.errors %}
+            <div style="background: #fee; border: 1px solid #fcc; padding: 15px; border-radius: 5px; margin-bottom: 20px; color: #c33;">
+                <strong>⚠️ Hay errores en el formulario:</strong>
+                <ul>
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        
+        <form method="POST">
+            {% csrf_token %}
+            
+            <label>Nombre de usuario:</label>
+            {{ form.username }}
+            {% if form.username.errors %}
+                <div style="color: #c33; font-size: 0.9em;">{{ form.username.errors }}</div>
+            {% endif %}
+            
+            <label>Contraseña:</label>
+            {{ form.password1 }}
+            {% if form.password1.errors %}
+                <div style="color: #c33; font-size: 0.9em;">{{ form.password1.errors }}</div>
+            {% endif %}
+            
+            <label>Confirmar contraseña:</label>
+            {{ form.password2 }}
+            {% if form.password2.errors %}
+                <div style="color: #c33; font-size: 0.9em;">{{ form.password2.errors }}</div>
+            {% endif %}
+            
+            <button type="submit" class="btn-guardar">Registrarse</button>
+        </form>
+        
+        <br>
+        <p>¿Ya tienes cuenta? <a href="{% url 'login' %}" class="volver">Inicia sesión aquí</a></p>
+        <a href="{% url 'hola_mundo' %}" class="volver">← Volver a la lista</a>
+    </div>
+    
+    <script src="{% static 'hola/theme.js' %}"></script>
+</body>
+</html>

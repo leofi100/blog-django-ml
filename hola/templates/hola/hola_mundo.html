@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mi Blog con Django</title>
+    <link rel="stylesheet" href="{% static 'hola/style.css' %}">
+</head>
+<body>
+    <button class="theme-toggle" onclick="toggleTheme()">
+        <span class="icon" id="theme-icon">🌙</span>
+        <span id="theme-text">Oscuro</span>
+    </button>
+    
+    <div class="container">
+        <h1>📝 Mis Artículos</h1>
+        
+        {% if user.is_authenticated %}
+            <p style="color: var(--muted-text);">Hola, <strong>{{ user.username }}</strong> 👋</p>
+            <a href="{% url 'nuevo_articulo' %}" class="btn-crear">
+                + Crear Nuevo Artículo
+            </a>
+            <a href="{% url 'logout' %}" class="btn-crear" style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); margin-left: 10px;">
+                🚪 Cerrar Sesión
+            </a>
+        {% else %}
+            <a href="{% url 'login' %}" class="btn-crear">
+                🔐 Iniciar Sesión
+            </a>
+            <a href="{% url 'registro' %}" class="btn-crear" style="background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%); margin-left: 10px;">
+                📝 Registrarse
+            </a>
+        {% endif %}
+        
+        {% for articulo in articulos %}
+            <div class="articulo">
+                <h2><a href="{% url 'detalle_articulo' articulo.id %}" style="color: inherit; text-decoration: none;">{{ articulo.titulo }}</a></h2>
+                <p>{{ articulo.contenido }}</p>
+                <small>📅 Publicado el: {{ articulo.fecha_creacion|date:"d/m/Y H:i" }}
+                {% if articulo.autor %}por <strong>{{ articulo.autor.username }}</strong>{% endif %}
+                </small>
+            </div>
+        {% empty %}
+            <p>No hay artículos todavía. ¡Crea el primero!</p>
+        {% endfor %}
+    </div>
+    
+    <script src="{% static 'hola/theme.js' %}"></script>
+    <script src="{% static 'hola/animations.js' %}"></script>
+</body>
+</html>

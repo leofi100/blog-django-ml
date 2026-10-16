@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ articulo.titulo }}</title>
+    <link rel="stylesheet" href="{% static 'hola/style.css' %}">
+</head>
+<body>
+    <button class="theme-toggle" onclick="toggleTheme()">
+        <span class="icon" id="theme-icon">🌙</span>
+        <span id="theme-text">Oscuro</span>
+    </button>
+    
+    <div class="container">
+        <article class="articulo-detalle">
+            <h1>{{ articulo.titulo }}</h1>
+            
+            <div class="meta">
+                <span>📅 {{ articulo.fecha_creacion|date:"d/m/Y H:i" }}</span>
+                {% if articulo.autor %}
+                    <span>✍️ Por: <strong>{{ articulo.autor.username }}</strong></span>
+                {% endif %}
+            </div>
+            
+            <div class="contenido">
+                {{ articulo.contenido|linebreaks }}
+            </div>
+            
+            {% if user.is_authenticated and user == articulo.autor %}
+                <div class="acciones" style="margin-top: 25px; padding-top: 20px; border-top: 1px solid var(--input-border);">
+                    <a href="{% url 'editar_articulo' articulo.id %}" class="btn-editar">
+                        ✏️ Editar
+                    </a>
+                    <a href="{% url 'eliminar_articulo' articulo.id %}" class="btn-eliminar-link">
+                        🗑️ Eliminar
+                    </a>
+                </div>
+            {% endif %}
+        </article>
+        
+        <br>
+        <a href="{% url 'hola_mundo' %}" class="volver">← Volver a la lista</a>
+    </div>
+    
+    <script src="{% static 'hola/theme.js' %}"></script>
+</body>
+</html>

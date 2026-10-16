@@ -1,0 +1,12 @@
+<h1>¿Comprará este cliente?</h1>
+
+<form method="post">
+    {% csrf_token %}
+    <p>Edad: <input type="number" name="edad" required></p>
+    <p>Minutos en la web: <input type="number" name="minutos" required></p>
+    <button type="submit">Predecir</button>
+</form>
+
+{% if resultado %}
+    <h2>Resultado: {{ resultado }}</h2>
+{% endif %}

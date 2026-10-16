@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Nuevo Artículo</title>
+    <link rel="stylesheet" href="{% static 'hola/style.css' %}">
+</head>
+<body>
+    <button class="theme-toggle" onclick="toggleTheme()">
+        <span class="icon" id="theme-icon">🌙</span>
+        <span id="theme-text">Oscuro</span>
+    </button>
+    
+    <div class="container">
+        <h1>✍️ Crear Nuevo Artículo</h1>
+        
+        <form method="POST">
+            {% csrf_token %}
+            
+            <label for="{{ form.titulo.id_for_label }}">Título:</label>
+            {{ form.titulo }}
+            
+            <label for="{{ form.contenido.id_for_label }}">Contenido:</label>
+            {{ form.contenido }}
+            
+            <button type="submit" class="btn-guardar">💾 Guardar Artículo</button>
+        </form>
+        
+        <br>
+        <a href="{% url 'hola_mundo' %}" class="volver">← Volver a la lista</a>
+    </div>
+    
+    <script src="{% static 'hola/theme.js' %}"></script>
+</body>
+</html>
